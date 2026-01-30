@@ -1,0 +1,139 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec} % For customizing section titles
+\setlength{\columnsep}{0.25in}
+% Customize \section* titles (Roman numerals) to be smaller and with reduced spacing before
+% and after them
+\titleformat{\section}[block]{\normalfont\bfseries\small}{\thesection}{1em}{} % Smaller font,
+% bold Roman numerals
+\titlespacing*{\section}{0pt}{1ex}{1ex} % Less vertical space before and after section title
+% (adjusted to 1ex)
+% Customize subsection titles to be smaller with controlled spacing
+\titleformat{\subsection}[runin]{\normalfont\bfseries\small}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{0.5ex}{0.5ex} % Less vertical space before and after
+% subsection title
+\title{\textbf{Class Project: Exploring WASP-18 b via the Transit Method}}
+\author{Isaac Gutierrez - Class of 2024 \\ Ampersand: Gateway Expeditions Into Exoplanets - 
+Fall 2024}
+\date{}
+\begin{document}
+\maketitle
+\section*{I. Transit Method Background}
+Commencing as an observational method, the first scientific study of transits in the solar system
+was that of Mercury transiting the sun, observed by Pierre Gassendi in 1631 [1]. Since the
+discovery of HD 209458 b in 1999 as the first exoplanet to be discovered via the transit method,
+the method has soared to large popularity within the astrophysical community, leading to more
+than four thousand exoplanet discoveries via the transit method as of 2024. The idea of detecting
+planets via their shadows dates back centuries, but it became scientifically feasible in the late
+20th century with advancements in photometry. Over time, space-based telescopes like Kepler
+and later TESS revolutionized the method, providing continuous and highly precise observations
+free from Earth's atmospheric interference, with the JWST mission providing a bright future for
+the detection of extrasolar planets via their transits.
+\section*{II. Methodology of the Exoplanet Study}
+\subsection*{A. Data Acquisition}
+Reference [2], known as the Mikulski Archive for Space Telescopes, sources all relevant data in
+this project. 1), referring to the code assigned to step 1 of the class project (which will be a
+notation used for the code file signed to each respective part of the project), downloads all
+2-minute cadence data on WASP-18 b from TESS, including all sectors of the relevant
+observation periods. The download comes in the form of multiple \texttt{.fits} files, which will
+allow the use of \texttt{astropy} features that will simplify 2) and onward.
+\subsection*{B. Data Preprocessing:}
+2) processes the relevant data fields, masking unuseful data,
+concatenating the desired data, and plotting such data into a light curve, as shown in Figure 1.
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\columnwidth]{Figure 1.png}
+\caption{}
+\label{fig:lightcurve}
+\end{figure}
+Since data of poor quality is removed, an uncertainty is implemented in 2) on the concatenated
+data's flux only. Due to the time disparities in each observation period on WASP-18 b, the light
+curve appears compressed.
+\subsection*{C. Rediscovering WASP-18 b:}
+Through the box-least squares (BLS) \texttt{astropy} implementation, the following
+periodogram is generated in 3) (Figure 2).
+\begin{figure}[!h]
+\centering
+\caption{}
+\label{fig:placeholder2}
+\end{figure}
+\includegraphics[width=\columnwidth]{Figure 2.png}
+Calculations of the periods of WASP-18 b's transits, along with their depths, are calculated via a
+"best-fit" period, or the most resonant peak from the generated periodogram. This best-fit period
+is calculated to be 0.94 days. Binning is used to remove noise and identify the flux of the transit
+period, with the transit depth calculated using the flux to be around 0.0067. With the given radius
+of WASP-18 as 1.319 solar radii, WASP-18 b's radius is calculated to be 0.11 solar radii, and the
+impact parameter of its transits is around 0.37 using the following equations, where \( R_s \) is
+the radius of WASP-18, \( R_p \) is the radius of WASP-18 b, \( T \) is the transit depth, \( a \) is
+the semi-major axis of WASP-18 b's orbit, \( i \) is its inclination, and \( b \) is the impact
+parameter:
+\[
+R_p = R_s \sqrt{T}, \quad b = \cos(i) \frac{a}{R_s}
+\]
+Uncertainty (flux error) is accounted for as the standard deviation of flux. This is also
+implemented in 4) to account for uncertainty.
+\subsection*{D. The Primary Transits of WASP-18 b:}
+The light curve of the best-fit period is folded in 4), which obtains the phase curve of the period.
+This is then plotted across three transits of WASP-18 b on its host star, as shown below, where
+the primary transit is highlighted.
+\begin{figure}[!h]
+\centering
+\caption{}
+\label{fig:placeholder3}
+\end{figure}
+\includegraphics[width=\columnwidth]{Figure 3.png}
+Binning is applied to the graph, and the phase is scaled for clarity.
+\subsection*{E. The Secondary Eclipse of WASP-18 b: }
+The applied binning in 4) already shows distinct "secondary" transits in the light curve of
+WASP-18 b, but nonetheless 5) follows the desired instructions. Two of the three transits from 4)
+are highlighted, where the primary (most distinct) transits are removed from the light curve via
+masking. BLS is rerun, generating the following graph (Figure 4).
+\begin{figure}[!h]
+\centering
+\caption{}
+\label{fig:placeholder4}
+\end{figure}
+\includegraphics[width=\columnwidth]{Figure 4.png}
+5) also bins the data to identify the secondary eclipse of WASP-18 b, which is most clear in the
+dip just before the leftmost "primary" transit in the light curve. By the scaled phase, this occurs
+between -1.0 radians and -0.5 radians, with a calculated depth of 0.0011. Through this given
+value, the dayside temperature of WASP-18 b can be calculated via the mathematical
+implementation in 5) to be around 3084 K.
+\subsection*{F. Full Phase Curve of WASP-18 b:}
+Via the phase curve generated by the periodogram data in 3), the full phase curve is plotted
+below with distinctions made to label the primary and secondary transits/eclipses. The phase is
+scaled to highlight the transits and focus on the landmarks of the phase curve. Primary transits
+are distinguished as purple regions, while secondary transits are distinguished as green regions,
+as shown below (Figure 5).
+\begin{figure}[!h]
+\centering
+\caption{}
+\label{fig:placeholder5}
+\includegraphics[width=\columnwidth]{Figure 5.png}
+\end{figure}
+\section*{III. Results and Conclusion}
+Via the data presented, the following quantities were inferred about WASP-18 b:
+\begin{itemize}[noitemsep, topsep=0pt]
+\item \textbf{WASP-18 b's radius:} 0.11 solar radii.
+\item \textbf{WASP-18 b's dayside surface temperature:} ~3084 K.
+\end{itemize}
+These results are approximately (within a small margin of error) what is considered today as the
+accurate qualities of WASP-18 b in the astrophysical community. Through the photometric data
+from the Transiting Exoplanet Survey Satellite (TESS), the project utilized common software
+methods to make observations on a paradigm exoplanet, allowing us to make inferences on other
+details of the exoplanet through statistical analysis.
+Furthermore, this methodology can be implemented to analyze other photometric data to make
+claims about other exoplanets, and serves as a strong example of how modern technologies
+continue to do so for the increasing discovery of new extrasolar planets in the cosmos.
+\section*{References}
+\begin{enumerate}[noitemsep, topsep=0pt]
+\item D. Briot and J. Schneider, ``Prehistory of Transit Searches,''
+https://arxiv.org/abs/1803.06896.
+\item Space Telescope Science Institute, Barbara A. Mikulski Archive for Space Telescopes,
+https://mast.stsci.edu/portal/Mashup/Clients/Mast/Portal.html
+\end{enumerate}
+\end{document}
