@@ -1,7 +1,7 @@
 # WASP-18 b Transit Analysis Pipeline
 
 ## Overview
-This project implements a simplified exoplanet analysis pipeline using TESS photometric data for the hot Jupiter WASP-18 b. The pipeline follows the steps of a typical exoplanet discovery and characterization workflow, from downloading light curve data to measuring primary and secondary transits and constructing the full phase curve. All code is written in Python, and figures and results are summarized in a LaTeX paper.
+This project implements a simplified exoplanet analysis pipeline using TESS photometric data for the hot Jupiter WASP-18 b. The pipeline follows the steps of a typical exoplanet discovery and characterization workflow, from downloading light curve data to measuring primary and secondary transits and constructing the full phase curve. All code is written in Python, and figures and results are summarized in a LaTeX paper. **Please follow the file, class_Project_Report, to see how the project was conducted.**
 
 ## Code Structure
 
